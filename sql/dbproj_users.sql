@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2026 at 04:24 PM
+-- Generation Time: May 05, 2026 at 04:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,48 +24,91 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `dbproj_roles`
+--
+
+CREATE TABLE `dbproj_roles` (
+  `role_id` int(11) NOT NULL,
+  `role_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dbproj_roles`
+--
+
+INSERT INTO `dbproj_roles` (`role_id`, `role_name`) VALUES
+(1, 'Admin'),
+(2, 'Reviewer'),
+(3, 'User');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `dbproj_users`
 --
 
 CREATE TABLE `dbproj_users` (
   `user_id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `role` enum('visitor','creator','admin') NOT NULL DEFAULT 'visitor',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `full_name` varchar(100) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `dbproj_users`
 --
 
-INSERT INTO `dbproj_users` (`user_id`, `username`, `email`, `password`, `role`, `created_at`) VALUES
-(1, 'admin_user', 'admin@movies.com', 'placeholder', 'admin', '2026-05-05 14:23:00'),
-(2, 'creator_user', 'creator@movies.com', 'placeholder', 'creator', '2026-05-05 14:23:00'),
-(3, 'viewer_user', 'viewer@movies.com', 'placeholder', 'visitor', '2026-05-05 14:23:00');
+INSERT INTO `dbproj_users` (`user_id`, `full_name`, `email`, `password_hash`, `role_id`, `created_at`) VALUES
+(1, 'Admin User', 'admin@movies.com', 'placeholder', 1, '2026-05-05 17:41:48'),
+(2, 'Creator User', 'creator@movies.com', 'placeholder', 2, '2026-05-05 17:41:48'),
+(3, 'Viewer User', 'viewer@movies.com', 'placeholder', 3, '2026-05-05 17:41:48');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `dbproj_roles`
+--
+ALTER TABLE `dbproj_roles`
+  ADD PRIMARY KEY (`role_id`),
+  ADD UNIQUE KEY `role_name` (`role_name`);
+
+--
 -- Indexes for table `dbproj_users`
 --
 ALTER TABLE `dbproj_users`
   ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `fk_users_role` (`role_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `dbproj_roles`
+--
+ALTER TABLE `dbproj_roles`
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `dbproj_users`
 --
 ALTER TABLE `dbproj_users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `dbproj_users`
+--
+ALTER TABLE `dbproj_users`
+  ADD CONSTRAINT `fk_users_role` FOREIGN KEY (`role_id`) REFERENCES `dbproj_roles` (`role_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
