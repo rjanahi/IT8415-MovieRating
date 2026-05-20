@@ -1,4 +1,3 @@
---05_procedures.sql
 -- Procedures SQL commands: 
 -- • keyword search (optional) 
 -- • start date (optional) 

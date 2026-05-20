@@ -1,19 +1,22 @@
 -- Create SQL commands: 
--- CREATE TABLE dbProj_roles( 
--- role_id INT AUTO_INCREMENT PRIMARY KEY, 
--- role_name VARCHAR(50) NOT NULL UNIQUE 
--- );  
 
--- CREATE TABLE dbProj_users( 
--- user_id INT AUTO_INCREMENT PRIMARY KEY, 
--- full_name VARCHAR(100) NOT NULL, 
--- email VARCHAR(150) NOT NULL UNIQUE, 
--- password_hash VARCHAR(255) NOT NULL, 
--- role_id INT NOT NULL, 
--- created_at DATETIME DEFAULT CURRENT_TIMESTAMP, 
--- CONSTRAINT fk_users_role FOREIGN KEY(role_id) REFERENCES dbProj_roles(role_id) 
--- ON DELETE RESTRICT ON UPDATE CASCADE 
--- );  
+-- Roles
+CREATE TABLE dbProj_roles( 
+role_id INT AUTO_INCREMENT PRIMARY KEY, 
+role_name VARCHAR(50) NOT NULL UNIQUE 
+);  
+
+-- Users
+CREATE TABLE dbProj_users( 
+user_id INT AUTO_INCREMENT PRIMARY KEY, 
+full_name VARCHAR(100) NOT NULL, 
+email VARCHAR(150) NOT NULL UNIQUE, 
+password_hash VARCHAR(255) NOT NULL, 
+role_id INT NOT NULL, 
+created_at DATETIME DEFAULT CURRENT_TIMESTAMP, 
+CONSTRAINT fk_users_role FOREIGN KEY(role_id) REFERENCES dbProj_roles(role_id) 
+ON DELETE RESTRICT ON UPDATE CASCADE 
+);  
 
 -- Categories
 CREATE TABLE dbProj_categories( 

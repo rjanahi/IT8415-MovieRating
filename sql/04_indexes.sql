@@ -15,14 +15,6 @@ ON dbProj_movies(release_date);
 CREATE INDEX idx_ratings_movie_id 
 ON dbProj_ratings(movie_id); 
 
---Index on movie_id in movie_categories for faster lookups
-CREATE INDEX idx_movie_categories_movie_id 
-ON dbProj_movie_categories(movie_id); 
-
---Index on category_id in movie_categories for faster lookups
-CREATE INDEX idx_movie_categories_category_id 
-ON dbProj_movie_categories(category_id); 
-
 --Index on movie_id in reviews for faster lookups
 CREATE INDEX idx_reviews_movie_id 
 ON dbProj_reviews(movie_id); 
@@ -33,7 +25,7 @@ ON dbProj_reviews(user_id);
 
 --Index on review_id in comments for faster lookups
 CREATE INDEX idx_comments_review_id 
-ON dbProj_comments(review_id); 
+ON dbProj_comments(review_id);
 
 --Index on user_id in comments for faster lookups
 CREATE INDEX idx_comments_user_id 

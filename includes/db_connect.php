@@ -1,6 +1,6 @@
 <?php
 $host     = 'localhost';
-$dbname   = 'dbProj_movies';
+$dbname   = 'dbProj';
 $username = 'root';
 $password = '';
 
